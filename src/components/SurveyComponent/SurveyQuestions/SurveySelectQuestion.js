@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const SurveySelectQuestion = (props) => {
   const { options, questionID, onSelect } = props;
 
@@ -8,8 +9,10 @@ const SurveySelectQuestion = (props) => {
       <select
         className="survey-widget__select"
         name={questionID}
+        defaultValue="survey-widget-placeholder"
         onChange={onSelect}
       >
+        <option disabled value="survey-widget-placeholder">Please select the answer</option>
         {options.map((option, index) => (
           <option
             key={index}

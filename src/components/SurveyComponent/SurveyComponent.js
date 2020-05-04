@@ -91,7 +91,6 @@ const SurveyComponent = (props) => {
       }
     >
       {loading && <SurveySpinner />}
-      {/* {!survey && <div className="survey-widget__loader">Loading...</div>} */}
       {Boolean(survey) && currentStep !== steps && (
         <>
           <h4 className="survey-widget__title">{survey.title}</h4>
