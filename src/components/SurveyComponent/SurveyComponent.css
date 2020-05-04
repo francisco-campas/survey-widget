@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+
+.survey-widget {
+  font-family: "Roboto", sans-serif;
+  border-radius: 20px;
+  background: rgb(0, 177, 245);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 177, 245, 1) 0%,
+    rgba(0, 211, 243, 1) 100%
+  );
+  width: 320px;
+  height: 200px;
+  color: #2e2445;
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  font-size: 14px;
+}
+
+.survey-widget__title {
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+}
+
+.survey-widget__question.question__label {
+  text-align: center;
+  margin: 0;
+  font-size: 14px;
+}
+
+.survey-widget__question-wrapper{
+    display: flex;
+    justify-content: flex-start;
+}
+
+.survey-widget__radio-wrapper{
+    padding-left: 40px;
+}
+
+.survey-widget [type="radio"]:checked,
+.survey-widget [type="radio"]:not(:checked) {
+    position: absolute;
+    left: -9999px;
+}
+.survey-widget [type="radio"]:checked + label,
+.survey-widget [type="radio"]:not(:checked) + label
+{
+    position: relative;
+    padding-left: 28px;
+    cursor: pointer;
+    line-height: 20px;
+    display: inline-block;
+}
+.survey-widget [type="radio"]:checked + label:before,
+.survey-widget [type="radio"]:not(:checked) + label:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 18px;
+    height: 18px;
+    border: 1px solid #ddd;
+    border-radius: 100%;
+    background: #fff;
+}
+.survey-widget [type="radio"]:checked + label:after,
+.survey-widget [type="radio"]:not(:checked) + label:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: #00b1f5;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border-radius: 100%;
+    -webkit-transition: all 0.2s ease;
+    transition: all 0.2s ease;
+}
+.survey-widget [type="radio"]:not(:checked) + label:after {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+}
+.survey-widget [type="radio"]:checked + label:after {
+    opacity: 1;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+
+.survey-widget__radiobutton-wrapper:not(:first-child){
+    margin-left: 40px;
+}

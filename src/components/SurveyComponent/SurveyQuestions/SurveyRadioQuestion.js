@@ -4,12 +4,13 @@ const SurveyRadioQuestion = (props) => {
     const {options, questionID, onSelect} = props;
 
     return (
-        <div className="survey-widget__radio-wrapper">
+        <div className="survey-widget__question-wrapper survey-widget__radio-wrapper">
             {options.map((option, index) => (
-                <label key={index} >
-                    <input className="survey-widget__radiobutton" type="radio" name={questionID} value={option} onChange={onSelect}/>
-                    {option}
-                </label>
+                <p key={index} className="survey-widget__radiobutton-wrapper">
+                   <input className="survey-widget__radiobutton" type="radio" id={questionID + index} name={questionID} value={option} onChange={onSelect}/>
+                   <label htmlFor={questionID + index}>{option}</label>
+                </p>
+                
                 
             ))}
         </div>

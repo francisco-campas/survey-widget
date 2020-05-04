@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import SurveyRadioQuestion from "./SurveyQuestions/SurveyRadioQuestion";
 import SurveySelectQuestion from "./SurveyQuestions/SurveySelectQuestion";
+import './SurveyComponent.css';
 
 const SurveyComponent = (props) => {
   const { eventId, surveyId, userId, apiUrl } = props;
@@ -87,7 +88,7 @@ const SurveyComponent = (props) => {
             <div className="survey-widget__question" key={question.id}>
               {index === currentStep && (
                 <>
-                  <h5>{question.label}</h5>
+                  <h5 className="survey-widget__question question__label">{question.label}</h5>
                   {question.type === "radio" && (
                     <SurveyRadioQuestion
                       questionID={question.id}
