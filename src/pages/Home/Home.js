@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import SurveyComponent from "../../components/SurveyComponent/SurveyComponent";
 import "./Home.css";
 
-const eventId = "F824Bb7abtQpvv07kjrX";
-const surveyId = "qpSogKlTVVQSTgJ5Aakb";
-const userId = "1wewd9asdasdnas9as";
+const OrganizationID = "F824Bb7abtQpvv07kjrX";
+const surveyID = "qpSogKlTVVQSTgJ5Aakb";
+const userID = "1wewd9asdasdnas9as";
 const apiUrl = process.env.REACT_APP_FIREBASE_API_URL;
 
-const Home = (props) => {
+const Home = () => {
   const [loading, setLoading] = useState(false);
 
   function refreshWidget() {
     setLoading(true);
-    const uri = `/api/events/${eventId}/surveys/${surveyId}/answers/${userId}`;
+    const uri = `/api/events/${OrganizationID}/surveys/${surveyID}/answers/${userID}`;
     fetch(apiUrl + uri, { method: "DELETE" }).finally(() => {
       setLoading(false);
     });
@@ -23,16 +23,16 @@ const Home = (props) => {
       <h1>Page with survey</h1>
       <p
         onClick={refreshWidget}
-        style={{ cursor: "pointer", "text-decoration": "underline" }}
+        style={{ cursor: "pointer", "textDecoration": "underline" }}
       >
         Click to refresh widget state
       </p>
       {!loading && (
         <div className="home__wrapper">
           <SurveyComponent
-            eventId={eventId}
-            surveyId={surveyId}
-            userId={userId}
+            OrganizationID={OrganizationID}
+            surveyID={surveyID}
+            userID={userID}
             apiUrl={apiUrl}
           />
         </div>

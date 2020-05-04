@@ -4,7 +4,7 @@ const SurveySelectQuestion = (props) => {
   const { options, questionID, onSelect } = props;
 
   return (
-    <div className="survey-widget__question-wrapper survey-widget__radio-wrapper">
+    <div className="survey-widget__question-wrapper survey-widget__select-wrapper">
       <select
         className="survey-widget__select"
         name={questionID}
@@ -13,7 +13,7 @@ const SurveySelectQuestion = (props) => {
         {options.map((option, index) => (
           <option
             key={index}
-            className="survey-widget__radiobutton"
+            className="survey-widget__option"
             value={option}
           >
             {option}

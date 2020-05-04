@@ -54,7 +54,7 @@
   padding-top: 20px;
 }
 
-.survey-widget__radio-wrapper {
+.survey-widget__radio-wrapper, .survey-widget__select-wrapper {
   padding-left: 40px;
 }
 
@@ -120,8 +120,13 @@
   font-size: 14px;
   font-weight: 500;
   border-radius: 5px;
-  width: calc(100% - 40px);
+  width: calc(100% - 40px) !important;;
   height: 30px;
+}
+
+.survey-widget__option{
+    max-width: 100%;
+    overflow-wrap: break-word;
 }
 
 .survey-widget__stepper {

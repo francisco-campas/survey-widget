@@ -7,7 +7,7 @@ import SurveyStepper from "./SurveyStepper/SurveyStepper";
 import "./SurveyComponent.css";
 
 const SurveyComponent = (props) => {
-  const { eventId, surveyId, userId, apiUrl } = props;
+  const { OrganizationID, surveyID, userID, apiUrl } = props;
 
   const [survey, setSurvey] = useState(null);
   const [steps, setSteps] = useState(0);
@@ -17,8 +17,8 @@ const SurveyComponent = (props) => {
 
   const fetchAnswersAndQuestions = async (componentDidMount = false) => {
     setLoading(true);
-    const surveyUri = `/api/events/${eventId}/surveys/${surveyId}`;
-    const answerUri = `/api/events/${eventId}/surveys/${surveyId}/answers/${userId}`;
+    const surveyUri = `/api/events/${OrganizationID}/surveys/${surveyID}`;
+    const answerUri = `/api/events/${OrganizationID}/surveys/${surveyID}/answers/${userID}`;
 
     const [survey, answer] = await Promise.all(
       [surveyUri, answerUri].map((uri) =>
@@ -62,9 +62,9 @@ const SurveyComponent = (props) => {
   const questionSelect = ({ questionID, questionLabel }) => (event) => {
     setLoading(true);
     const answer = {
-      uid: userId,
-      surveyId,
-      eventId,
+      uid: userID,
+      surveyID,
+      OrganizationID,
       questionID,
       questionLabel,
       answer: event.target.value,
