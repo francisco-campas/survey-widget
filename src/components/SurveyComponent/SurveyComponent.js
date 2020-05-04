@@ -37,13 +37,6 @@ const SurveyComponent = (props) => {
       .map((question) => question.isAnswered)
       .filter(Boolean).length;
 
-    console.log(
-      "COMPONENT DID MOUNT",
-      componentDidMount,
-      isDone,
-      survey.questions.length,
-      answeredCount
-    );
     if (componentDidMount && survey.questions.length === answeredCount) {
       setIsDone(true);
     }
