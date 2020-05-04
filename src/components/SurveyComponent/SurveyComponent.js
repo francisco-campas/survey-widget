@@ -7,8 +7,9 @@ const SurveyComponent = (props) => {
   const [survey, setSurvey] = useState(null);
   const [steps, setSteps] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
+  const [isDone, setIsDone] = useState(false);
 
-  const fetchAnswersAndQuestions = async () => {
+  const fetchAnswersAndQuestions = async (componentDidMount = false) => {
     const surveyUri = `/api/events/${eventId}/surveys/${surveyId}`;
     const answerUri = `/api/events/${eventId}/surveys/${surveyId}/answers/${userId}`;
 
@@ -33,6 +34,17 @@ const SurveyComponent = (props) => {
       .map((question) => question.isAnswered)
       .filter(Boolean).length;
 
+    console.log(
+      "COMPONENT DID MOUNT",
+      componentDidMount,
+      isDone,
+      survey.questions.length,
+      answeredCount
+    );
+    if (componentDidMount && survey.questions.length === answeredCount) {
+      setIsDone(true);
+    }
+
     setSurvey(survey);
     setSteps(survey.questions.length);
     setCurrentStep(answeredCount);
@@ -43,7 +55,7 @@ const SurveyComponent = (props) => {
   );
 
   useEffect(() => {
-    fetchAnswersAndQuestionsCallback();
+    fetchAnswersAndQuestionsCallback(true);
   }, []);
 
   const questionSelect = ({ questionID, questionLabel }) => (event) => {
@@ -56,21 +68,19 @@ const SurveyComponent = (props) => {
       answer: event.target.value,
     };
 
-    console.log("ANSWER", answer);
-
     fetch(apiUrl + "/api/answers", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(answer),
-    }).then(fetchAnswersAndQuestionsCallback);
+    }).then(() => fetchAnswersAndQuestionsCallback());
   };
 
   return (
     <div className="survey-widget">
       {!survey && <div className="survey-widget__loader">Loading...</div>}
-      {Boolean(survey) && (
+      {Boolean(survey) && currentStep !== steps && (
         <>
           <h4 className="survey-widget__title">{survey.title}</h4>
           {survey.questions.map((question, index) => (
@@ -105,6 +115,14 @@ const SurveyComponent = (props) => {
           <div className="survey-widget__steps">
             {currentStep}/{steps}
           </div>
+        </>
+      )}
+      {Boolean(survey) && (
+        <>
+          {currentStep === steps && !isDone && (
+            <div className="survey-widget__message">Thank You</div>
+          )}
+          {isDone && <div className="survey-widget__message">Done</div>}
         </>
       )}
     </div>
