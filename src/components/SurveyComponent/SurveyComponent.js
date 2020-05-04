@@ -81,13 +81,13 @@ const SurveyComponent = (props) => {
   };
 
   return (
-    <div className="survey-widget">
+    <div className={"survey-widget " + (isDone || currentStep === steps ? "survey-widget--completed" : "")}>
       {!survey && <div className="survey-widget__loader">Loading...</div>}
       {Boolean(survey) && currentStep !== steps && (
         <>
           <h4 className="survey-widget__title">{survey.title}</h4>
           {survey.questions.map((question, index) => (
-            <div className="survey-widget__question" key={question.id}>
+            <div className={"survey-widget__question " +  (index === currentStep ? "survey-widget__question--active" : "")} key={question.id}>
               {index === currentStep && (
                 <>
                   <h5 className="survey-widget__question question__label">

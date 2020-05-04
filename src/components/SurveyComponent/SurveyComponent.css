@@ -21,6 +21,11 @@
   font-weight: 500;
 }
 
+.survey-widget--completed {
+  align-items: center;
+  justify-content: center;
+}
+
 .survey-widget__title {
   color: #fff;
   text-align: center;
@@ -30,7 +35,7 @@
   font-weight: 500;
 }
 
-.survey-widget__question {
+.survey-widget__question--active {
   padding-top: 10px;
 }
 
@@ -128,4 +133,11 @@
 
 .survey-widget__step--answered {
   background-color: #182053;
+}
+
+.survey-widget__message {
+  color: #fff;
+  font-size: 20px;
+  letter-spacing: 0.5px;
+  font-weight: 500;
 }
