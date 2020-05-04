@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import SurveyRadioQuestion from "./SurveyQuestions/SurveyRadioQuestion";
-import SurveySelectQuestion from "./SurveyQuestions/SurveySelectQuestion";
+import SurveySpinner from "./SurveySpinner/SurveySpinner";
 import SurveyQuestion from "./SurveyQuestions/SurveyQuestion";
 
 import SurveyStepper from "./SurveyStepper/SurveyStepper";
@@ -9,12 +8,15 @@ import "./SurveyComponent.css";
 
 const SurveyComponent = (props) => {
   const { eventId, surveyId, userId, apiUrl } = props;
+
   const [survey, setSurvey] = useState(null);
   const [steps, setSteps] = useState(0);
   const [currentStep, setCurrentStep] = useState(0);
   const [isDone, setIsDone] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const fetchAnswersAndQuestions = async (componentDidMount = false) => {
+    setLoading(true);
     const surveyUri = `/api/events/${eventId}/surveys/${surveyId}`;
     const answerUri = `/api/events/${eventId}/surveys/${surveyId}/answers/${userId}`;
 
@@ -46,6 +48,7 @@ const SurveyComponent = (props) => {
     setSurvey(survey);
     setSteps(survey.questions.length);
     setCurrentStep(answeredCount);
+    setLoading(false);
   };
 
   const fetchAnswersAndQuestionsCallback = useCallback(
@@ -57,6 +60,7 @@ const SurveyComponent = (props) => {
   }, []);
 
   const questionSelect = ({ questionID, questionLabel }) => (event) => {
+    setLoading(true);
     const answer = {
       uid: userId,
       surveyId,
@@ -72,7 +76,11 @@ const SurveyComponent = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(answer),
-    }).then(() => fetchAnswersAndQuestionsCallback());
+    })
+      .then(() => fetchAnswersAndQuestionsCallback())
+      .catch(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -82,7 +90,8 @@ const SurveyComponent = (props) => {
         (isDone || currentStep === steps ? "survey-widget--completed" : "")
       }
     >
-      {!survey && <div className="survey-widget__loader">Loading...</div>}
+      {loading && <SurveySpinner />}
+      {/* {!survey && <div className="survey-widget__loader">Loading...</div>} */}
       {Boolean(survey) && currentStep !== steps && (
         <>
           <h4 className="survey-widget__title">{survey.title}</h4>
