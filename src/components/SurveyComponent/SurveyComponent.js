@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from "react";
 import SurveyRadioQuestion from "./SurveyQuestions/SurveyRadioQuestion";
 import SurveySelectQuestion from "./SurveyQuestions/SurveySelectQuestion";
+import SurveyQuestion from "./SurveyQuestions/SurveyQuestion";
+
 import SurveyStepper from "./SurveyStepper/SurveyStepper";
 
 import "./SurveyComponent.css";
@@ -74,38 +76,38 @@ const SurveyComponent = (props) => {
   };
 
   return (
-    <div className={"survey-widget " + (isDone || currentStep === steps ? "survey-widget--completed" : "")}>
+    <div
+      className={
+        "survey-widget " +
+        (isDone || currentStep === steps ? "survey-widget--completed" : "")
+      }
+    >
       {!survey && <div className="survey-widget__loader">Loading...</div>}
       {Boolean(survey) && currentStep !== steps && (
         <>
           <h4 className="survey-widget__title">{survey.title}</h4>
           {survey.questions.map((question, index) => (
-            <div className={"survey-widget__question " +  (index === currentStep ? "survey-widget__question--active" : "")} key={question.id}>
+            <div
+              className={
+                "survey-widget__question " +
+                (index === currentStep ? "survey-widget__question--active" : "")
+              }
+              key={question.id}
+            >
               {index === currentStep && (
                 <>
                   <h5 className="survey-widget__question question__label">
                     {question.label}
                   </h5>
-                  {question.type === "radio" && (
-                    <SurveyRadioQuestion
-                      questionID={question.id}
-                      options={question.options}
-                      onSelect={questionSelect({
-                        questionID: question.id,
-                        questionLabel: question.label,
-                      })}
-                    />
-                  )}
-                  {question.type === "select" && (
-                    <SurveySelectQuestion
-                      questionID={question.id}
-                      options={question.options}
-                      onSelect={questionSelect({
-                        questionID: question.id,
-                        questionLabel: question.label,
-                      })}
-                    />
-                  )}
+                  <SurveyQuestion
+                    type={question.type}
+                    questionID={question.id}
+                    options={question.options}
+                    onSelect={questionSelect({
+                      questionID: question.id,
+                      questionLabel: question.label,
+                    })}
+                  />
                 </>
               )}
             </div>
