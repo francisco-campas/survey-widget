@@ -17,8 +17,8 @@ const SurveyComponent = (props) => {
 
   const fetchAnswersAndQuestions = async (componentDidMount = false) => {
     setLoading(true);
-    const surveyUri = `/api/events/${OrganizationID}/surveys/${surveyID}`;
-    const answerUri = `/api/events/${OrganizationID}/surveys/${surveyID}/answers/${userID}`;
+    const surveyUri = `/survey?OrganizationID=${OrganizationID}&surveyID=${surveyID}`;
+    const answerUri = `/answer?OrganizationID=${OrganizationID}&surveyID=${surveyID}&userID=${userID}`;
 
     const [survey, answer] = await Promise.all(
       [surveyUri, answerUri].map((uri) =>
@@ -70,7 +70,7 @@ const SurveyComponent = (props) => {
       answer: event.target.value,
     };
 
-    fetch(apiUrl + "/api/answers", {
+    fetch(apiUrl + "/answer", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

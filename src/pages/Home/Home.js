@@ -12,7 +12,7 @@ const Home = () => {
 
   function refreshWidget() {
     setLoading(true);
-    const uri = `/api/events/${OrganizationID}/surveys/${surveyID}/answers/${userID}`;
+    const uri = `/answer?OrganizationID=${OrganizationID}&surveyID=${surveyID}&userID=${userID}`;
     fetch(apiUrl + uri, { method: "DELETE" }).finally(() => {
       setLoading(false);
     });
